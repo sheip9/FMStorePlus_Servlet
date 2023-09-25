@@ -175,4 +175,16 @@ public class JDBCUtil {
         }
         return rs;
     }
+    public synchronized ResultSet executeQuery(Object o){
+        String[][] vluProperty = getProperty(o);
+        String vluArg = montageWithEqualSign(vluProperty);
+        String sql = "SELECT * FROM " + this.clzName + " WHERE " + vluArg;
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
+        } catch (Exception e) {
+            return null;
+        }
+        return rs;
+    }
 }

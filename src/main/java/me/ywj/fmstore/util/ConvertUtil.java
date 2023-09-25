@@ -1,7 +1,9 @@
 package me.ywj.fmstore.util;
 
 import me.ywj.fmstore.dto.ItemDto;
+import me.ywj.fmstore.dto.UserDto;
 import me.ywj.fmstore.entity.Item;
+import me.ywj.fmstore.entity.User;
 import me.ywj.fmstore.vo.ItemVo;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -14,6 +16,7 @@ public class ConvertUtil {
     static {
         entityMap.put(ItemDto.class, Item.class);
         entityMap.put(Item.class, ItemVo.class);
+        entityMap.put(UserDto.class, User.class);
     }
     /**
      * 对象的转换
