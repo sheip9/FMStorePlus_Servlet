@@ -5,6 +5,7 @@ import me.ywj.fmstore.dto.UserDto;
 import me.ywj.fmstore.entity.Item;
 import me.ywj.fmstore.entity.User;
 import me.ywj.fmstore.vo.ItemVo;
+import me.ywj.fmstore.vo.UserVo;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.util.ArrayList;
@@ -67,5 +68,8 @@ public class ConvertUtil {
     }
     public static List<ItemVo> entityListToVoList(List<Item> origList){
         return listConvert(origList, ItemVo.class);
+    }
+    public static UserVo entityToVo(User user){
+        return objConvert(user, UserVo.class);
     }
 }

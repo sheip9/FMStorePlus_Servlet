@@ -18,7 +18,6 @@ public class JWTUtil {
     public static String generateToken(User user) {
         JWTCreator.Builder builder = JWT.create();
         builder.withClaim("username", user.getUsername());
-        builder.withClaim("type", user.getType());
         builder.withIssuedAt(new Date(System.currentTimeMillis()));
         builder.withExpiresAt(new Date(System.currentTimeMillis() + EXPIRE_TIME));
         return builder.sign(Algorithm.HMAC256(SECRET_KEY));
@@ -44,7 +43,7 @@ public class JWTUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public static Boolean verify(String token) {
+    public static Boolean verifyToken(String token) {
         try {
             JWT.require(Algorithm.HMAC256(SECRET_KEY)).build().verify(token);
             return !isTokenExpired(token);
@@ -56,7 +55,7 @@ public class JWTUtil {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-            return JWTUtil.verify(token);
+            return JWTUtil.verifyToken(token);
         }
         return false;
     }

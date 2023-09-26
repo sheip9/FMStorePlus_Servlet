@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@Setter
 public class UserVo {
     String username;
-    String password;
-    public UserVo(String username, String password) {
-        this.username = username;
-        this.password = password;
+    String token;
+
+    public UserVo() {
     }
 }
