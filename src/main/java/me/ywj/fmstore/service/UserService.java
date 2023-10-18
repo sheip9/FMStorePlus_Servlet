@@ -8,6 +8,7 @@ import me.ywj.fmstore.util.JWTUtil;
 import me.ywj.fmstore.vo.UserVo;
 
 import java.util.Date;
+import java.util.HashSet;
 
 public class UserService {
     public static String reg(UserDto userDto){
@@ -19,7 +20,7 @@ public class UserService {
             return null;
         }
     }
-    public static String login(UserDto userDto){
+    public static String login(UserDto userDto) throws Exception {
         User userQuery = new User();
         userQuery.setUsername(userDto.getUsername());
         User res = UserDao.query(userQuery);
@@ -27,7 +28,7 @@ public class UserService {
             return JWTUtil.generateToken(res);
         }
         else {
-            return null;
+            throw new Exception(userDto.getUsername() + "密码错误。");
         }
     }
 }

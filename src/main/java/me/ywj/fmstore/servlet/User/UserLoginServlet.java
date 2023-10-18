@@ -18,11 +18,15 @@ public class UserLoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         UserDto userDto = new UserDto(username, password);
-        String token = UserService.login(userDto);
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
-        out.print(token);
+        try {
+            String token = UserService.login(userDto);
+            out.print(token);
+        }catch (Exception e){
+            resp.setStatus(401);
+        }
     }
 
     @Override
