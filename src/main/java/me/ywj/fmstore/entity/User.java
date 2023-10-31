@@ -1,19 +1,18 @@
 package me.ywj.fmstore.entity;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class User {
     Long id;
     String username;
     String password;
     Integer type;
     Long reg_time;
-
-    public User() {
-    }
 
     public User(Long id, String username, String password, Integer type, Long reg_time) {
         this.id = id;

@@ -187,4 +187,16 @@ public class JDBCUtil {
         }
         return rs;
     }
+    public static synchronized ResultSet specialQuery(String sql){
+        Connection conn = getConnection();
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
+        } catch (Exception e) {
+            return null;
+        }
+        return rs;
+    }
 }

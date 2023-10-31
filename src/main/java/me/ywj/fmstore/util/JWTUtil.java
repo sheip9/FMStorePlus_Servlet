@@ -6,7 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import me.ywj.fmstore.entity.User;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 public class JWTUtil {
@@ -37,6 +39,9 @@ public class JWTUtil {
     public static String extractClaim(String token, String claimName) {
         return JWT.decode(token).getClaim(claimName).asString();
     }
+    public static String extractClaim(HttpServletRequest req, String claimName) {
+        return JWT.decode(getToken(req)).getClaim(claimName).asString();
+    }
 
     // check if a token is expired
     private static Boolean isTokenExpired(String token) {
@@ -58,5 +63,11 @@ public class JWTUtil {
             return JWTUtil.verifyToken(token);
         }
         return false;
+    }
+    private static String getToken(String authHeader){
+        return authHeader.substring(7);
+    }
+    private static String getToken(HttpServletRequest req){
+        return req.getHeader("Authorization").substring(7);
     }
 }

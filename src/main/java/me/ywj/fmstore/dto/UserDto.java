@@ -1,8 +1,9 @@
 package me.ywj.fmstore.dto;
 
+import lombok.Data;
 import lombok.Getter;
 
-@Getter
+@Data
 public class UserDto {
     String username;
     String password;

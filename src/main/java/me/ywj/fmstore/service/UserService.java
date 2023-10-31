@@ -13,7 +13,7 @@ import java.util.HashSet;
 public class UserService {
     public static String reg(UserDto userDto){
         User user = (User) ConvertUtil.dtoToEntity(userDto);
-        user.setReg_time(new Date().getTime());
+        user.setReg_time(System.currentTimeMillis());
         if(UserDao.insert(user) == 1){
             return JWTUtil.generateToken(user);
         }else {
@@ -30,5 +30,11 @@ public class UserService {
         else {
             throw new Exception(userDto.getUsername() + "密码错误。");
         }
+    }
+    public static Long getUserId(String username){
+        User user = new User();
+        user.setUsername(username);
+        User res = UserDao.query(user);
+        return user.getId();
     }
 }
