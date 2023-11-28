@@ -1,9 +1,7 @@
-package me.ywj.fmstore.entity;
+package me.ywj.fmstore.pojo;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor

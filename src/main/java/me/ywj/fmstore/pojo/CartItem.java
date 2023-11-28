@@ -1,4 +1,4 @@
-package me.ywj.fmstore.entity;
+package me.ywj.fmstore.pojo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class CartItem {
     private Long id;
-    private Long user_id;
-    private Long item_id;
     private Long amount;
+    private String name;
+    //    private Byte[] pic;
+    private Double price;
 }

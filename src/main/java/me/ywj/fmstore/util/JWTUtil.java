@@ -4,12 +4,11 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import me.ywj.fmstore.entity.User;
+import me.ywj.fmstore.pojo.User;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.Map;
 
 public class JWTUtil {
     private static final long EXPIRE_TIME= 1000*60*60*10;
@@ -17,9 +16,9 @@ public class JWTUtil {
     private static final String SECRET_KEY = "4ac59271c598d70afaf591f3f55dd22615d41c35a60d9e5d769690f3d569085d";
 
     // generate a token for a given user
-    public static String generateToken(User user) {
+    public static String generateToken(Map<String, String> map) {
         JWTCreator.Builder builder = JWT.create();
-        builder.withClaim("username", user.getUsername());
+        map.forEach(builder::withClaim);
         builder.withIssuedAt(new Date(System.currentTimeMillis()));
         builder.withExpiresAt(new Date(System.currentTimeMillis() + EXPIRE_TIME));
         return builder.sign(Algorithm.HMAC256(SECRET_KEY));
@@ -40,7 +39,7 @@ public class JWTUtil {
         return JWT.decode(token).getClaim(claimName).asString();
     }
     public static String extractClaim(HttpServletRequest req, String claimName) {
-        return JWT.decode(getToken(req)).getClaim(claimName).asString();
+        return JWT.decode(getToken(getHeader(req))).getClaim(claimName).asString();
     }
 
     // check if a token is expired
@@ -57,17 +56,17 @@ public class JWTUtil {
         }
     }
     public static Boolean verifyFromRequest(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
+        String authHeader = getHeader(request);
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            return JWTUtil.verifyToken(token);
+            String token = getToken(authHeader);
+            return verifyToken(token);
         }
         return false;
     }
     private static String getToken(String authHeader){
         return authHeader.substring(7);
     }
-    private static String getToken(HttpServletRequest req){
-        return req.getHeader("Authorization").substring(7);
+    private static String getHeader(HttpServletRequest req){
+        return req.getHeader("Authorization");
     }
 }

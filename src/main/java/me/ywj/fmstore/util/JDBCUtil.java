@@ -12,7 +12,10 @@ public class JDBCUtil {
 
     static ResourceBundle rb = ResourceBundle.getBundle("jdbc");
     //定义数据库连接的参数
-    private static final String DRIVER = rb.getString("driver"); //驱动类名
+    /***
+     * 驱动类名
+     */
+    private static final String DRIVER = rb.getString("driver");
     private static final String URL = rb.getString("url"); //数据库地址
     private static final String USER = rb.getString("username"); //用户名
     private static final String PASSWORD = rb.getString("password"); //密码
@@ -64,7 +67,9 @@ public class JDBCUtil {
         int length = strArr.length;
         for (int i = 0; i < length; i++) {
             sb.append(strArr[i]);
-            if (i != length - 1) sb.append(",");
+            if (i != length - 1) {
+                sb.append(",");
+            }
         }
         return sb.toString();
     }
@@ -73,7 +78,9 @@ public class JDBCUtil {
         int length = strArr[0].length;
         for (int i = 0; i < length; i++) {
             sb.append(strArr[0][i]).append("=").append(strArr[1][i]);
-            if (i != length - 1) sb.append(",");
+            if (i != length - 1) {
+                sb.append(",");
+            }
         }
         return sb.toString();
     }
@@ -169,7 +176,7 @@ public class JDBCUtil {
         String sql = "SELECT * FROM " + this.clzName;
         try {
             ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
         } catch (Exception e) {
             return null;
         }
@@ -181,20 +188,26 @@ public class JDBCUtil {
         String sql = "SELECT * FROM " + this.clzName + " WHERE " + vluArg;
         try {
             ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
         } catch (Exception e) {
             return null;
         }
         return rs;
     }
-    public static synchronized ResultSet specialQuery(String sql){
+    public synchronized ResultSet specialQuery(String sql,Object... params){
         Connection conn = getConnection();
         PreparedStatement ps;
         ResultSet rs;
         try {
             ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery(sql);
+            if (params != null && params.length > 0) {
+                for (int i = 0; i < params.length; i++) {
+                    ps.setObject(i + 1, params[i]);
+                }
+            }
+            rs = ps.executeQuery();
         } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
         return rs;

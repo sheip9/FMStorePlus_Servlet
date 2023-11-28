@@ -1,6 +1,6 @@
 package me.ywj.fmstore.dao;
 
-import me.ywj.fmstore.entity.User;
+import me.ywj.fmstore.pojo.User;
 import me.ywj.fmstore.util.JDBCUtil;
 
 import java.sql.ResultSet;

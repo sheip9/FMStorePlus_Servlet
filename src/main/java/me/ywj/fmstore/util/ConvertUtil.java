@@ -2,8 +2,8 @@ package me.ywj.fmstore.util;
 
 import me.ywj.fmstore.dto.ItemDto;
 import me.ywj.fmstore.dto.UserDto;
-import me.ywj.fmstore.entity.Item;
-import me.ywj.fmstore.entity.User;
+import me.ywj.fmstore.pojo.Item;
+import me.ywj.fmstore.pojo.User;
 import me.ywj.fmstore.vo.ItemVo;
 import me.ywj.fmstore.vo.UserVo;
 import org.apache.commons.beanutils.BeanUtils;
@@ -66,8 +66,8 @@ public class ConvertUtil {
     public static Object dtoToEntity(Object dto) {
         return objConvert(dto,  entityMap.get(dto.getClass()));
     }
-    public static List<ItemVo> entityListToVoList(List<Item> origList){
-        return listConvert(origList, ItemVo.class);
+    public static <T> List<T> entityListToVoList(List<?> origList, Class<T> destClass){
+        return listConvert(origList, destClass);
     }
     public static UserVo entityToVo(User user){
         return objConvert(user, UserVo.class);
