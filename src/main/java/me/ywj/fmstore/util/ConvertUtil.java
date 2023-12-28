@@ -26,7 +26,7 @@ public class ConvertUtil {
      * @return 目标对象
      */
 
-    private static <T> T objConvert(Object origObj, Class<T> destClass) {
+    public static <T> T objConvert(Object origObj, Class<T> destClass) {
         if (origObj == null || destClass == null) {
             return null;
         }
@@ -48,7 +48,7 @@ public class ConvertUtil {
      * @param destClass 目标类
      * @return 目标对象的列表
      */
-    private static <T> List<T> listConvert(List<?> origList, Class<T> destClass){
+    public static <T> List<T> listConvert(List<?> origList, Class<T> destClass){
         if (origList == null) {
             return null;
         }
