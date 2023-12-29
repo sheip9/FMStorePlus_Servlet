@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * JWTUtil
+ * JWT工具类
+ */
 public class JWTUtil {
     private static final long EXPIRE_TIME= 1000*60*60*10;
     // 私钥 需随机生成ss

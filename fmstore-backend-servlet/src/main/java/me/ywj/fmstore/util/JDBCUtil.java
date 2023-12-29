@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 //import java.util.regex.Matcher;
 //import java.util.regex.Pattern;
 
+//TODO: 重构sql语句生成方法
 public class JDBCUtil {
 
     static ResourceBundle rb = ResourceBundle.getBundle("jdbc");

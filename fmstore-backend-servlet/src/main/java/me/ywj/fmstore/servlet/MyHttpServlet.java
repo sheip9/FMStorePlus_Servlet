@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ResourceBundle;
 
 /**
  * MyHttpServlet
@@ -21,7 +22,6 @@ import java.io.PrintWriter;
 public class MyHttpServlet extends HttpServlet {
     protected final Gson gson = new Gson();
     private static final String METHOD_PATCH = "PATCH";
-
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String method = req.getMethod();
@@ -31,19 +31,11 @@ public class MyHttpServlet extends HttpServlet {
         super.service(req, resp);
     }
 
-
     protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "");
     }
     public <T> T fromJson(HttpServletRequest req,Class<T> clazz) throws IOException {
         BufferedReader reader = req.getReader();
-        StringBuilder builder = new StringBuilder();
-        String line = reader.readLine();
-        while(line != null){
-            builder.append(line);
-            line = reader.readLine();
-        }
-        reader.close();
         return gson.fromJson(reader, clazz);
     }
     public String toJson(Object object){

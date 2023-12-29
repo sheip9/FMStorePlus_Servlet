@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//TODO： 清理代码
 public class ConvertUtil {
     private static final HashMap<Class<?>,Class<?>> entityMap = new HashMap<>();
     static {

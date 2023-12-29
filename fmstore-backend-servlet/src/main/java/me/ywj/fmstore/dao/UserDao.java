@@ -16,7 +16,7 @@ public class UserDao {
         User result = null;
         try {
             rs.next();
-            result = new User(rs.getLong(1), rs.getString(2), rs.getNString(3),rs.getInt(4),rs.getLong(5) );
+            result = new User(rs.getLong(1), rs.getString(2), rs.getString(3),rs.getInt(4),rs.getLong(5) );
         }
         catch (Exception e){
             e.printStackTrace();
